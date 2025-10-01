@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estadística Computacional | Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --neon-green: #39FF14;
+            --neon-green-dark: #00FF00;
+            --neon-green-light: #32CD32;
+            --bg-dark: #0A0A0A;
+            --bg-lighter: #111111;
+            --bg-card: #1a1a1a;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--bg-dark);
+            color: #ffffff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background: linear-gradient(45deg, #0A0A0A 0%, #111111 50%, #0A0A0A 100%);
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(57, 255, 20, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            z-index: 1000;
+            border-bottom: 2px solid var(--neon-green);
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--neon-green);
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 10px var(--neon-green);
+        }
+
+        nav a:hover {
+            text-shadow: 0 0 20px var(--neon-green), 0 0 30px var(--neon-green);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            margin-top: 60px;
+            position: relative;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--neon-green);
+            text-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green), 0 0 30px var(--neon-green);
+            animation: flicker 3s infinite alternate;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: #cccccc;
+            margin-bottom: 2rem;
+        }
+
+        /* Pokeball Container */
+        .pokeball-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 2rem auto;
+            animation: float 3s ease-in-out infinite;
+            cursor: pointer;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .pokeball-top, .pokeball-bottom {
+            position: absolute;
+            width: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .pokeball-top {
+            top: 0;
+            z-index: 2;
+        }
+
+        .pokeball-bottom {
+            bottom: 0;
+        }
+
+        .pokeball-container:hover .pokeball-top {
+            transform: rotate(-15deg) translateY(-5px);
+        }
+
+        .pokeball-container:hover .pokeball-bottom {
+            transform: rotate(15deg) translateY(5px);
+        }
+
+        .profile-details {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 180px;
+        }
+
+        .profile-details summary {
+            list-style: none;
+            cursor: pointer;
+            color: var(--neon-green);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            text-align: center;
+            padding: 0.5rem;
+            background: rgba(57, 255, 20, 0.1);
+            border-radius: 10px;
+            border: 2px solid var(--neon-green);
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            color: var(--neon-green);
+            text-align: center;
+            margin-bottom: 3rem;
+            text-shadow: 0 0 15px var(--neon-green);
+        }
+
+        /* About Section */
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .profile-image {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            border: 4px solid var(--neon-green);
+            box-shadow: 0 0 30px var(--neon-green), inset 0 0 30px rgba(57, 255, 20, 0.2);
+            object-fit: cover;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 30px var(--neon-green); }
+            50% { box-shadow: 0 0 50px var(--neon-green), 0 0 70px var(--neon-green); }
+        }
+
+        .about-text h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-green);
+            margin-bottom: 1rem;
+        }
+
+        .about-text p {
+            color: #cccccc;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .animated-gif {
+            position: absolute;
+            right: 5%;
+            top: 500px;
+            width: 400px;
+            height: 300px;
+            border: 3px solid var(--neon-green);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.5);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin: 2rem 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: var(--bg-card);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid var(--neon-green);
+            box-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-green-dark), var(--neon-green));
+            animation: progressAnimation 2s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            color: #000;
+        }
+
+        @keyframes progressAnimation {
+            from { width: 0; }
+        }
+
+        /* Units Grid */
+        .units-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .unit-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 2px solid var(--neon-green);
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .unit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(57, 255, 20, 0.4);
+        }
+
+        .unit-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: var(--neon-green);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px var(--neon-green);
+        }
+
+        /* Task Cards */
+        .tasks-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .task-card {
+            background: rgba(57, 255, 20, 0.05);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 2px solid rgba(57, 255, 20, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .task-card:hover {
+            background: rgba(57, 255, 20, 0.1);
+            border-color: var(--neon-green);
+            box-shadow: 0 5px 20px rgba(57, 255, 20, 0.3);
+            transform: translateX(10px);
+        }
+
+        .task-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            color: var(--neon-green);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .task-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .task-btn {
+            padding: 0.5rem 1.5rem;
+            background: transparent;
+            border: 2px solid var(--neon-green);
+            color: var(--neon-green);
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-shadow: 0 0 5px var(--neon-green);
+        }
+
+        .task-btn:hover {
+            background: var(--neon-green);
+            color: #000;
+            box-shadow: 0 0 20px var(--neon-green);
+            transform: scale(1.05);
+        }
+
+        .final-work {
+            background: rgba(57, 255, 20, 0.15);
+            border: 3px solid var(--neon-green);
+            margin-top: 1.5rem;
+            animation: glowPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { box-shadow: 0 0 10px rgba(57, 255, 20, 0.3); }
+            50% { box-shadow: 0 0 25px rgba(57, 255, 20, 0.6); }
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-lighter);
+            padding: 3rem 5%;
+            text-align: center;
+            border-top: 2px solid var(--neon-green);
+            box-shadow: 0 -5px 20px rgba(57, 255, 20, 0.2);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: var(--neon-green);
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            text-shadow: 0 0 20px var(--neon-green);
+            transform: translateY(-5px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .section-title { font-size: 2rem; }
+            .about-container { grid-template-columns: 1fr; text-align: center; }
+            .units-container { grid-template-columns: 1fr; }
+            nav ul { gap: 1rem; }
+            .animated-gif { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <nav>
+        <ul>
+            <li><a href="#home">INICIO</a></li>
+            <li><a href="#about">SOBRE MÍ</a></li>
+            <li><a href="#unidades">UNIDADES</a></li>
+            <li><a href="#contacto">CONTACTO</a></li>
+        </ul>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>ESTADÍSTICA COMPUTACIONAL</h1>
+            <p>Explorando el mundo de los datos con código</p>
+            
+            <div class="pokeball-container">
+                <img class="pokeball-top" src="https://user-images.githubusercontent.com/44261381/209363264-ac854d3c-2cc2-44c4-928e-8a08d1013f46.png" alt="Top pokeball">
+                <div class="profile-details">
+                    <details>
+                        <summary>Ver Perfil</summary>
+                    </details>
+                </div>
+                <img class="pokeball-bottom" src="https://user-images.githubusercontent.com/44261381/209363271-905d2a5e-8a18-44c0-a450-45dddd4d5036.png" alt="Bottom pokeball">
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2 class="section-title">SOBRE MÍ</h2>
+        <div class="about-container">
+            <img class="profile-image" src="https://via.placeholder.com/250" alt="Foto de perfil">
+            <div class="about-text">
+                <h2>Estudiante de Estadística Computacional</h2>
+                <p>Apasionado por el análisis de datos, machine learning y visualización estadística. Este portafolio documenta mi trayectoria en el curso de Estadística Computacional.</p>
+                <p>📊 Habilidades: Python, R, SQL, Data Analysis, Statistical Modeling</p>
+                <p>🎯 Objetivo: Dominar las herramientas computacionales para resolver problemas estadísticos complejos</p>
+            </div>
+        </div>
+        <img class="animated-gif" src="https://media.giphy.com/media/SWoSkN6DxTszqIKEqv/giphy.gif" alt="Animated coding">
+    </section>
+
+    <section id="unidades">
+        <h2 class="section-title">UNIDADES DEL CURSO</h2>
+        
+        <div class="progress-container">
+            <h3 style="color: var(--neon-green); font-family: 'Orbitron', sans-serif; margin-bottom: 1rem;">📈 Progreso General</h3>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 75%;">75% Completado</div>
+            </div>
+        </div>
+
+        <div class="units-container">
+            <!-- UNIDAD 1 -->
+            <div class="unit-card">
+                <h3 class="unit-title">📦 UNIDAD 1</h3>
+                <div class="progress-bar" style="margin-bottom: 2rem;">
+                    <div class="progress-fill" style="width: 100%;">100%</div>
+                </div>
+                
+                <div class="tasks-grid">
+                    <div class="task-card">
+                        <div class="task-title">🎯 Tarea 1 - Introducción a R</div>
+                        <div class="task-links">
+                            <a href="#" class="task-btn">📄 Ver Código</a>
+                            <a href="#" class="task-btn">📋 Ver PDF</a>
+                        </div>
+                    </div>
+
+                    <div class="task-card">
+                        <div class="task-title">📊 Tarea 2 - Análisis Descriptivo</div>
+                        <div class="task-links">
+                            <a href="#" class="task-btn">📄 Ver Código</a>
+                            <a href="#" class="task-btn">📋 Ver PDF</a>
+                        </div>
+                    </div>
+
+                    <div class="task-card">
+                        <div class="task-title">🔢 Tarea 3 - Probabilidad</div>
+                        <div class="task-links">
+                            <a href="#" class="task-btn">📄 Ver Código</a>
+                            <a href="#" class="task-btn">📋 Ver PDF</a>
+                        </div>
+                    </div>
+
+                    <div class="task-card">
+                        <div class="task-title">📈 Tarea 4 - Distribuciones</div>
+                        <div class="task-links">
+                            <a href="#" class="task-btn">📄 Ver Código</a>
+                            <a href="#" class="task-btn">📋 Ver PDF</a>
+                        </div>
+                    </div>
+
+                    <div class="task-card final-work">
+                        <div class="task-title">🏆 TRABAJO FINAL UNIDAD 1</div>
+                        <p style="color: #ccc; margin: 0.5rem 0;">Proyecto integrador de análisis estadístico</p>
+                        <div class="task-links">
+                            <a href="#" class="task-btn">📄 Ver Código</a>
+                            <a href="#" class="task-btn">📋 Ver PDF</a>
+                            <a href="#" class="task-btn">📁 Repositorio</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- UNIDAD 2 -->
+            <div class="unit-card">
+                <h3 class="unit-title">📦 UNIDAD 2</h3>
+                <div class="progress-bar" style="margin-bottom: 2rem;">
+                    <div class="progress-fill" style="width: 50%;">50%</div>
+                </div>
+                
+                <div class="tasks-grid">
+                    <div class="task-card">
+                        <div class="task-title">🎯 Tarea 1 - Inferencia Estadística</div>
+                        <div class="task-links">
+                            <a href="#" class="task-btn">📄 Ver Código</a>
+                            <a href="#" class="task-btn">📋 Ver PDF</a>
+                        </div>
+                    </div>
+
+                    <div class="task-card">
+                        <div class="task-title">📊 Tarea 2 - Pruebas de Hipótesis</div>
+                        <div class="task-links">
+                            <a href="#" class="task-btn">📄 Ver Código</a>
+                            <a href="#" class="task-btn">📋 Ver PDF</a>
+                        </div>
+                    </div>
+
+                    <div class="task-card">
+                        <div class="task-title">🔢 Tarea 3 - Regresión Lineal</div>
+                        <div class="task-links">
+                            <a href="#" class="task-btn">📄 Ver Código</a>
+                            <a href="#" class="task-btn">📋 Ver PDF</a>
+                        </div>
+                    </div>
+
+                    <div class="task-card">
+                        <div class="task-title">📈 Tarea 4 - Machine Learning</div>
+                        <div class="task-links">
+                            <a href="#" class="task-btn">📄 Ver Código</a>
+                            <a href="#" class="task-btn">📋 Ver PDF</a>
+                        </div>
+                    </div>
+
+                    <div class="task-card final-work">
+                        <div class="task-title">🏆 TRABAJO FINAL UNIDAD 2</div>
+                        <p style="color: #ccc; margin: 0.5rem 0;">Proyecto de modelado estadístico avanzado</p>
+                        <div class="task-links">
+                            <a href="#" class="task-btn">📄 Ver Código</a>
+                            <a href="#" class="task-btn">📋 Ver PDF</a>
+                            <a href="#" class="task-btn">📁 Repositorio</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contacto">
+        <h3 style="font-family: 'Orbitron', sans-serif; color: var(--neon-green); font-size: 2rem; margin-bottom: 1rem;">CONTACTO</h3>
+        <p style="color: #ccc; font-size: 1.2rem;">¿Interesado en colaborar o tienes preguntas?</p>
+        <div class="social-links">
+            <a href="https://github.com" title="GitHub">💻 GitHub</a>
+            <a href="mailto:tu@email.com" title="Email">📧 Email</a>
+            <a href="https://linkedin.com" title="LinkedIn">💼 LinkedIn</a>
+        </div>
+        <p style="margin-top: 2rem; color: #888;">© 2025 Estadística Computacional | Hecho con 💚 y código</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Animate on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.task-card, .unit-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
