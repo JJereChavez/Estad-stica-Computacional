@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estadística Computacional | JJereChavez</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --neon-green: #39FF14;
+            --neon-green-dark: #00FF00;
+            --neon-green-light: #32CD32;
+            --bg-dark: #0A0A0A;
+            --bg-lighter: #111111;
+            --bg-card: #1a1a1a;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--bg-dark);
+            color: #ffffff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .bg-animation {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background: linear-gradient(45deg, #0A0A0A 0%, #111111 50%, #0A0A0A 100%);
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(57, 255, 20, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            z-index: 1000;
+            border-bottom: 2px solid var(--neon-green);
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--neon-green);
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 10px var(--neon-green);
+        }
+
+        nav a:hover {
+            text-shadow: 0 0 20px var(--neon-green), 0 0 30px var(--neon-green);
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            margin-top: 60px;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 1200px;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--neon-green);
+            text-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green), 0 0 30px var(--neon-green);
+            animation: flicker 3s infinite alternate;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: #cccccc;
+            margin-bottom: 3rem;
+        }
+
+        .pokeball-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 3rem auto 2rem;
+            animation: float 3s ease-in-out infinite;
+            cursor: pointer;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .pokeball-top, .pokeball-bottom {
+            position: absolute;
+            width: 100%;
+            transition: all 0.4s ease;
+            filter: drop-shadow(0 0 10px var(--neon-green));
+        }
+
+        .pokeball-top {
+            top: -10px;
+            z-index: 2;
+        }
+
+        .pokeball-bottom {
+            bottom: -10px;
+        }
+
+        .pokeball-container:hover .pokeball-top {
+            transform: translateY(-15px) rotate(-25deg);
+            filter: drop-shadow(0 0 20px var(--neon-green));
+        }
+
+        .pokeball-container:hover .pokeball-bottom {
+            transform: translateY(15px) rotate(25deg);
+            filter: drop-shadow(0 0 20px var(--neon-green));
+        }
+
+        .profile-info {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+            text-align: center;
+            width: 160px;
+        }
+
+        .pokeball-container:hover .profile-info {
+            opacity: 1;
+        }
+
+        .profile-info p {
+            color: var(--neon-green);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-shadow: 0 0 10px var(--neon-green);
+            background: rgba(10, 10, 10, 0.9);
+            padding: 0.5rem;
+            border-radius: 8px;
+            border: 2px solid var(--neon-green);
+        }
+
+        section {
+            padding: 5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            color: var(--neon-green);
+            text-align: center;
+            margin-bottom: 3rem;
+            text-shadow: 0 0 15px var(--neon-green);
+        }
+
+        .about-container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 3rem;
+            align-items: center;
+            background: var(--bg-card);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 2px solid var(--neon-green);
+            box-shadow: 0 0 30px rgba(57, 255, 20, 0.2);
+        }
+
+        .profile-image-container {
+            text-align: center;
+        }
+
+        .profile-image {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            border: 4px solid var(--neon-green);
+            box-shadow: 0 0 30px var(--neon-green);
+            object-fit: cover;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 30px var(--neon-green); }
+            50% { box-shadow: 0 0 50px var(--neon-green), 0 0 70px var(--neon-green); }
+        }
+
+        .about-text h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-green);
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        .about-text p {
+            color: #cccccc;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .github-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.8rem 2rem;
+            background: transparent;
+            border: 2px solid var(--neon-green);
+            color: var(--neon-green);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 5px var(--neon-green);
+        }
+
+        .github-link:hover {
+            background: var(--neon-green);
+            color: #000;
+            box-shadow: 0 0 30px var(--neon-green);
+            transform: scale(1.05);
+        }
+
+        .units-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .unit-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 2px solid var(--neon-green);
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.2);
+            transition: all 0.4s ease;
+            text-align: center;
+        }
+
+        .unit-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(57, 255, 20, 0.5);
+            border-color: var(--neon-green-light);
+        }
+
+        .unit-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 0 10px var(--neon-green));
+        }
+
+        .unit-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: var(--neon-green);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px var(--neon-green);
+        }
+
+        .unit-description {
+            color: #ccc;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .unit-btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: transparent;
+            border: 2px solid var(--neon-green);
+            color: var(--neon-green);
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 5px var(--neon-green);
+        }
+
+        .unit-btn:hover {
+            background: var(--neon-green);
+            color: #000;
+            box-shadow: 0 0 25px var(--neon-green);
+            transform: scale(1.1);
+        }
+
+        footer {
+            background: var(--bg-lighter);
+            padding: 3rem 5%;
+            text-align: center;
+            border-top: 2px solid var(--neon-green);
+            box-shadow: 0 -5px 20px rgba(57, 255, 20, 0.2);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .social-links a {
+            color: var(--neon-green);
+            font-size: 1.3rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border: 2px solid transparent;
+            border-radius: 8px;
+        }
+
+        .social-links a:hover {
+            text-shadow: 0 0 20px var(--neon-green);
+            border-color: var(--neon-green);
+            background: rgba(57, 255, 20, 0.1);
+            transform: translateY(-5px);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .section-title { font-size: 2rem; }
+            .about-container { 
+                grid-template-columns: 1fr; 
+                text-align: center; 
+            }
+            .units-grid { grid-template-columns: 1fr; }
+            nav ul { gap: 1rem; font-size: 0.9rem; }
+            .pokeball-container { width: 150px; height: 150px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <nav>
+        <ul>
+            <li><a href="#home">🏠 INICIO</a></li>
+            <li><a href="#about">👤 SOBRE MÍ</a></li>
+            <li><a href="#unidades">📚 UNIDADES</a></li>
+            <li><a href="#contacto">📧 CONTACTO</a></li>
+        </ul>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>ESTADÍSTICA COMPUTACIONAL</h1>
+            <p>Explorando el mundo de los datos con código y análisis avanzado</p>
+            
+            <div class="pokeball-container">
+                <img class="pokeball-top" src="https://user-images.githubusercontent.com/44261381/209363264-ac854d3c-2cc2-44c4-928e-8a08d1013f46.png" alt="Top pokeball">
+                <div class="profile-info">
+                    <p>JJereChavez<br>📊 Data Analyst</p>
+                </div>
+                <img class="pokeball-bottom" src="https://user-images.githubusercontent.com/44261381/209363271-905d2a5e-8a18-44c0-a450-45dddd4d5036.png" alt="Bottom pokeball">
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2 class="section-title">SOBRE MÍ</h2>
+        <div class="about-container">
+            <div class="profile-image-container">
+                <img class="profile-image" src="https://avatars.githubusercontent.com/u/tu-id" alt="JJereChavez">
+            </div>
+            <div class="about-text">
+                <h2>JJereChavez</h2>
+                <p>👨‍💻 Estudiante de Estadística Computacional apasionado por el análisis de datos, machine learning y visualización estadística.</p>
+                <p>🎯 <strong>Objetivo:</strong> Dominar las herramientas computacionales para resolver problemas estadísticos complejos y transformar datos en información valiosa.</p>
+                <p>📊 <strong>Habilidades:</strong> R, Python, SQL, Data Analysis, Statistical Modeling, Data Visualization</p>
+                <p>🔬 <strong>Intereses:</strong> Análisis predictivo, Big Data, Machine Learning, Inferencia Estadística</p>
+                <a href="https://github.com/JJereChavez" target="_blank" class="github-link">
+                    💻 Ver GitHub Completo
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="unidades">
+        <h2 class="section-title">UNIDADES DEL CURSO</h2>
+        <p style="text-align: center; color: #ccc; font-size: 1.2rem; margin-bottom: 2rem;">
+            Selecciona una unidad para ver las tareas y proyectos realizados
+        </p>
+        
+        <div class="units-grid">
+            <div class="unit-card">
+                <div class="unit-icon">📦</div>
+                <h3 class="unit-title">UNIDAD 1</h3>
+                <p class="unit-description">
+                    Fundamentos de estadística computacional: Introducción a R, análisis descriptivo, probabilidad y distribuciones estadísticas.
+                </p>
+                <a href="unidad1.html" class="unit-btn">VER TRABAJOS →</a>
+            </div>
+
+            <div class="unit-card">
+                <div class="unit-icon">📊</div>
+                <h3 class="unit-title">UNIDAD 2</h3>
+                <p class="unit-description">
+                    Inferencia y modelado: Pruebas de hipótesis, regresión lineal, machine learning y análisis predictivo avanzado.
+                </p>
+                <a href="unidad2.html" class="unit-btn">VER TRABAJOS →</a>
+            </div>
+
+            <div class="unit-card">
+                <div class="unit-icon">🏆</div>
+                <h3 class="unit-title">PROYECTOS FINALES</h3>
+                <p class="unit-description">
+                    Proyectos integradores que combinan todos los conocimientos adquiridos en ambas unidades del curso.
+                </p>
+                <a href="proyectos.html" class="unit-btn">VER PROYECTOS →</a>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contacto">
+        <h3 style="font-family: 'Orbitron', sans-serif; color: var(--neon-green); font-size: 2rem; margin-bottom: 1rem;">
+            📬 CONTACTO
+        </h3>
+        <p style="color: #ccc; font-size: 1.2rem; margin-bottom: 1rem;">
+            ¿Interesado en colaborar o tienes preguntas sobre mis proyectos?
+        </p>
+        <div class="social-links">
+            <a href="https://github.com/JJereChavez" target="_blank">💻 GitHub</a>
+            <a href="mailto:tu@email.com" target="_blank">📧 Email</a>
+            <a href="https://linkedin.com/in/tu-perfil" target="_blank">💼 LinkedIn</a>
+            <a href="https://twitter.com/tu-usuario" target="_blank">🐦 Twitter</a>
+        </div>
+        <p style="margin-top: 2rem; color: #888; font-size: 0.9rem;">
+            © 2025 JJereChavez | Estadística Computacional | Hecho con 💚 y código
+        </p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.unit-card, .about-container').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.8s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
