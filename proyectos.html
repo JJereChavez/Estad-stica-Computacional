@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyectos Finales | Estadística Computacional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --neon-green: #39FF14;
+            --neon-green-dark: #00FF00;
+            --bg-dark: #0A0A0A;
+            --bg-card: #1a1a1a;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--bg-dark);
+            color: #ffffff;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 2rem;
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            border: 2px solid var(--neon-green);
+            color: var(--neon-green);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--neon-green);
+            color: #000;
+            box-shadow: 0 0 20px var(--neon-green);
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            color: var(--neon-green);
+            text-shadow: 0 0 15px var(--neon-green);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .page-description {
+            text-align: center;
+            color: #ccc;
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            gap: 3rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 3px solid var(--neon-green);
+            box-shadow: 0 0 30px rgba(57, 255, 20, 0.3);
+            transition: all 0.4s ease;
+            animation: glowPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(57, 255, 20, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(57, 255, 20, 0.6); }
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(57, 255, 20, 0.5);
+        }
+
+        .project-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(57, 255, 20, 0.3);
+        }
+
+        .project-icon {
+            font-size: 4rem;
+            filter: drop-shadow(0 0 15px var(--neon-green));
+        }
+
+        .project-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
+            color: var(--neon-green);
+            text-shadow: 0 0 15px var(--neon-green);
+        }
+
+        .project-subtitle {
+            color: #888;
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+
+        .project-description {
+            color: #ccc;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin: 1.5rem 0;
+        }
+
+        .project-features {
+            background: rgba(57, 255, 20, 0.05);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--neon-green);
+            margin: 2rem 0;
+        }
+
+        .project-features h4 {
+            color: var(--neon-green);
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 1rem;
+        }
+
+        .project-features ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .project-features li {
+            color: #ccc;
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .project-features li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--neon-green);
+            font-weight: bold;
+        }
+
+        .project-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            background: transparent;
+            border: 2px solid var(--neon-green);
+            color: var(--neon-green);
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            background: var(--neon-green);
+            color: #000;
+            box-shadow: 0 0 25px var(--neon-green);
+            transform: scale(1.05);
+        }
+
+        .btn-primary {
+            background: var(--neon-green);
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            background: var(--neon-green-dark);
+            box-shadow: 0 0 35px var(--neon-green);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .stat-box {
+            background: rgba(57, 255, 20, 0.05);
+            padding: 1rem;
+            border-radius: 10px;
+            border: 2px solid rgba(57, 255, 20, 0.3);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: var(--neon-green);
+            font-weight: 700;
+        }
+
+        .stat-label {
+            color: #888;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .project-title { font-size: 1.8rem; }
+            .project-header { flex-direction: column; text-align: center; }
+            .project-actions { flex-direction: column; }
+            .btn { width: 100%; justify-content: center; }
+            .stats-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-btn">← Volver al Inicio</a>
+        
+        <h1>🏆 PROYECTOS FINALES</h1>
+        <p class="page-description">
+            Proyectos integradores que demuestran el dominio completo de la estadística computacional
+        </p>
+
+        <div class="projects-grid">
+            <!-- PROYECTO FINAL UNIDAD 1 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-icon">📊</div>
+                    <div>
+                        <h2 class="project-title">Proyecto Final - Unidad 1</h2>
+                        <p class="project-subtitle">Análisis Estadístico Fundamental con R</p>
+                    </div>
+                </div>
+
+                <p class="project-description">
+                    Proyecto integrador que combina todos los conceptos fundamentales de estadística computacional: 
+                    análisis descriptivo, probabilidad, distribuciones estadísticas y visualización de datos. 
+                    Incluye implementación de algoritmos, simulaciones y análisis exploratorio completo.
+                </p>
+
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Completado</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">R</div>
+                        <div class="stat-label">Lenguaje</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">2024</div>
+                        <div class="stat-label">Año</div>
+                    </div>
+                </div>
+
+                <div class="project-features">
+                    <h4>🎯 Características del Proyecto:</h4>
+                    <ul>
+                        <li>Análisis exploratorio de datos (EDA) completo</li>
+                        <li>Implementación de distribuciones de probabilidad</li>
+                        <li>Visualizaciones avanzadas con ggplot2</li>
+                        <li>Simulaciones de Monte Carlo</li>
+                        <li>Pruebas de bondad de ajuste</li>
+                        <li>Análisis de correlación y covarianza</li>
+                        <li>Documentación técnica completa</li>
+                    </ul>
+                </div>
+
+                <div class="project-features">
+                    <h4>🛠️ Tecnologías Utilizadas:</h4>
+                    <ul>
+                        <li>R Base y R Studio</li>
+                        <li>Tidyverse (dplyr, ggplot2, tidyr)</li>
+                        <li>R Shiny para aplicaciones interactivas</li>
+                        <li>Librerías estadísticas especializadas</li>
+                    </ul>
+                </div>
+
+                <div class="project-actions">
+                    <a href="https://github.com/JJereChavez/Estad-stica-Computacional" target="_blank" class="btn btn-primary">
+                        📁 Ver Repositorio Completo
+                    </a>
+                    <a href="https://github.com/JJereChavez/Estad-stica-Computacional/blob/main/proyecto_final_unidad1.R" target="_blank" class="btn">
+                        📄 Ver Código R
+                    </a>
+                    <a href="https://github.com/JJereChavez/Estad-stica-Computacional/blob/main/proyecto_final_unidad1.pdf" target="_blank" class="btn">
+                        📋 Ver Informe PDF
+                    </a>
+                </div>
+            </div>
+
+            <!-- PROYECTO FINAL UNIDAD 2 -->
+            <div class="project-card" style="opacity: 0.6; border-color: rgba(57, 255, 20, 0.3); animation: none;">
+                <div class="project-header">
+                    <div class="project-icon">🤖</div>
+                    <div>
+                        <h2 class="project-title">Proyecto Final - Unidad 2</h2>
+                        <p class="project-subtitle">Modelado Estadístico y Machine Learning</p>
+                    </div>
+                </div>
+
+                <p class="project-description">
+                    Proyecto avanzado que integrará inferencia estadística, modelado predictivo, machine learning 
+                    y análisis de series temporales. Incluirá implementación de modelos complejos, validación cruzada 
+                    y análisis comparativo de diferentes enfoques estadísticos.
+                </p>
+
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-number" style="color: #ffff00;">25%</div>
+                        <div class="stat-label">En Progreso</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">R/Python</div>
+                        <div class="stat-label">Lenguajes</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">2025</div>
+                        <div class="stat-label">Año</div>
+                    </div>
+                </div>
+
+                <div class="project-features">
+                    <h4>🎯 Características Planificadas:</h4>
+                    <ul>
+                        <li>Inferencia estadística avanzada</li>
+                        <li>Modelos de regresión múltiple</li>
+                        <li>Algoritmos de clasificación (Random Forest, SVM)</li>
+                        <li>Clustering y análisis no supervisado</li>
+                        <li>Cross-validation y métricas de evaluación</li>
+                        <li>Feature engineering y selección de variables</li>
+                        <li>Dashboard interactivo con resultados</li>
+                    </ul>
+                </div>
+
+                <div class="project-features">
+                    <h4>🛠️ Tecnologías a Utilizar:</h4>
+                    <ul>
+                        <li>R (caret, randomForest, e1071)</li>
+                        <li>Python (scikit-learn, pandas, numpy)</li>
+                        <li>Visualización con Plotly y Shiny</li>
+                        <li>Jupyter Notebooks para documentación</li>
+                    </ul>
+                </div>
+
+                <div class="project-actions">
+                    <a href="#" class="btn" style="opacity: 0.5; cursor: not-allowed; pointer-events: none;">
+                        📁 Próximamente
+                    </a>
+                    <a href="#" class="btn" style="opacity: 0.5; cursor: not-allowed; pointer-events: none;">
+                        📄 En Desarrollo
+                    </a>
+                    <a href="#" class="btn" style="opacity: 0.5; cursor: not-allowed; pointer-events: none;">
+                        📋 En Desarrollo
+                    </a>
+                </div>
+
+                <div style="background: rgba(255, 255, 0, 0.1); border: 2px solid #ffff00; border-radius: 10px; padding: 1rem; margin-top: 2rem; text-align: center;">
+                    <p style="color: #ffff00; font-family: 'Orbitron', sans-serif;">
+                        🚧 Proyecto en desarrollo activo - Próximas actualizaciones
+                    </p>
+                </div>
+            </div>
+
+            <!-- SECCIÓN DE TODOS LOS PROYECTOS -->
+            <div class="project-card" style="border-color: rgba(57, 255, 20, 0.5); animation: none;">
+                <div class="project-header">
+                    <div class="project-icon">💻</div>
+                    <div>
+                        <h2 class="project-title">Repositorio Completo</h2>
+                        <p class="project-subtitle">Todos los trabajos del curso</p>
+                    </div>
+                </div>
+
+                <p class="project-description">
+                    Accede al repositorio completo con todos los trabajos, tareas y proyectos del curso de 
+                    Estadística Computacional. Incluye código fuente, datasets, documentación y recursos adicionales.
+                </p>
+
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-number">10+</div>
+                        <div class="stat-label">Archivos</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">2</div>
+                        <div class="stat-label">Unidades</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">R</div>
+                        <div class="stat-label">Principal</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">Public</div>
+                        <div class="stat-label">Estado</div>
+                    </div>
+                </div>
+
+                <div class="project-features">
+                    <h4>📦 Contenido del Repositorio:</h4>
+                    <ul>
+                        <li>Código fuente de todas las tareas (Tarea1.R, Tarea4.R, app.R)</li>
+                        <li>Proyectos finales de ambas unidades</li>
+                        <li>Datasets y archivos de datos (.RData, .Rhistory)</li>
+                        <li>Documentación en PDF de cada trabajo</li>
+                        <li>Scripts de análisis y visualización</li>
+                        <li>Aplicaciones Shiny interactivas</li>
+                        <li>README con instrucciones de uso</li>
+                    </ul>
+                </div>
+
+                <div class="project-actions">
+                    <a href="https://github.com/JJereChavez/Estad-stica-Computacional" target="_blank" class="btn btn-primary">
+                        🌟 Visitar Repositorio GitHub
+                    </a>
+                    <a href="https://github.com/JJereChavez" target="_blank" class="btn">
+                        👤 Ver Perfil GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="index.html" class="back-btn">← Volver al Inicio</a>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.project-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            setTimeout(() => {
+                card.style.transition = 'all 0.8s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, index * 200);
+        });
+    </script>
+</body>
+</html>

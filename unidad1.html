@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unidad 1 | Estadística Computacional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --neon-green: #39FF14;
+            --neon-green-dark: #00FF00;
+            --bg-dark: #0A0A0A;
+            --bg-card: #1a1a1a;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--bg-dark);
+            color: #ffffff;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 2rem;
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            border: 2px solid var(--neon-green);
+            color: var(--neon-green);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--neon-green);
+            color: #000;
+            box-shadow: 0 0 20px var(--neon-green);
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            color: var(--neon-green);
+            text-shadow: 0 0 15px var(--neon-green);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .unit-description {
+            text-align: center;
+            color: #ccc;
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+        }
+
+        .progress-section {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid var(--neon-green);
+            margin-bottom: 3rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 40px;
+            background: #111;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid var(--neon-green);
+            margin-top: 1rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-green-dark), var(--neon-green));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            color: #000;
+            animation: fillAnimation 1.5s ease-out;
+        }
+
+        @keyframes fillAnimation {
+            from { width: 0; }
+        }
+
+        .tasks-container {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .task-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid rgba(57, 255, 20, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        .task-card:hover {
+            border-color: var(--neon-green);
+            box-shadow: 0 10px 30px rgba(57, 255, 20, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .task-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .task-number {
+            font-size: 3rem;
+            filter: drop-shadow(0 0 10px var(--neon-green));
+        }
+
+        .task-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: var(--neon-green);
+            text-shadow: 0 0 10px var(--neon-green);
+        }
+
+        .task-description {
+            color: #ccc;
+            margin: 1rem 0;
+            font-size: 1.1rem;
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            border: 2px solid var(--neon-green);
+            color: var(--neon-green);
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            background: var(--neon-green);
+            color: #000;
+            box-shadow: 0 0 20px var(--neon-green);
+            transform: scale(1.05);
+        }
+
+        .btn-primary {
+            background: var(--neon-green);
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            background: var(--neon-green-dark);
+            box-shadow: 0 0 30px var(--neon-green);
+        }
+
+        .final-project {
+            border: 3px solid var(--neon-green);
+            background: rgba(57, 255, 20, 0.05);
+            animation: glowPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { box-shadow: 0 0 10px rgba(57, 255, 20, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(57, 255, 20, 0.6); }
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: rgba(57, 255, 20, 0.2);
+            border: 1px solid var(--neon-green);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--neon-green);
+            margin-left: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .task-actions { flex-direction: column; }
+            .btn { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-btn">← Volver al Inicio</a>
+        
+        <h1>📦 UNIDAD 1</h1>
+        <p class="unit-description">
+            Fundamentos de Estadística Computacional
+        </p>
+
+        <div class="progress-section">
+            <h3 style="color: var(--neon-green); font-family: 'Orbitron', sans-serif;">
+                Progreso de la Unidad
+            </h3>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 100%;">100% Completado ✓</div>
+            </div>
+        </div>
+
+        <div class="tasks-container">
+            <!-- TAREA 1 -->
+            <div class="task-card">
+                <div class="task-header">
+                    <div class="task-number">🎯</div>
+                    <div>
+                        <h3 class="task-title">Tarea 1 <span class="badge">Completada</span></h3>
+                        <p style="color: #888; font-size: 0.9rem;">Archivo: Tarea1.R</p>
+                    </div>
+                </div>
+                <p class="task-description">
+                    Introducción a R: Fundamentos del lenguaje, estructuras de datos, operaciones básicas y primeros análisis estadísticos.
+                </p>
+                <div class="task-actions">
+                    <a href="https://github.com/JJereChavez/Estad-stica-Computacional/blob/main/Tarea1.pdf" target="_blank" class="btn">
+                        📋 Ver PDF
+                    </a>
+                </div>
+            </div>
+
+            <!-- TAREA 4 -->
+            <div class="task-card">
+                <div class="task-header">
+                    <div class="task-number">📈</div>
+                    <div>
+                        <h3 class="task-title">Tarea 4 <span class="badge">Completada</span></h3>
+                        <p style="color: #888; font-size: 0.9rem;">Archivo: Tarea4.R</p>
+                    </div>
+                </div>
+                <p class="task-description">
+                    Distribuciones de Probabilidad: Análisis de distribuciones discretas y continuas, aplicaciones estadísticas y simulaciones.
+                </p>
+                <div class="task-actions">
+                    <a href="https://github.com/JJereChavez/Estad-stica-Computacional/blob/main/Tarea4.R" target="_blank" class="btn btn-primary">
+                        📄 Ver Código en GitHub
+                    </a>
+                    <a href="https://github.com/JJereChavez/Estad-stica-Computacional/blob/main/Tarea4.pdf" target="_blank" class="btn">
+                        📋 Ver PDF
+                    </a>
+                </div>
+            </div>
+
+            <!-- APP.R -->
+            <div class="task-card">
+                <div class="task-header">
+                    <div class="task-number">🎮</div>
+                    <div>
+                        <h3 class="task-title">Aplicación Shiny <span class="badge">Completada</span></h3>
+                        <p style="color: #888; font-size: 0.9rem;">Archivo: app.R</p>
+                    </div>
+                </div>
+                <p class="task-description">
+                    Aplicación interactiva desarrollada con R Shiny para visualización y análisis de datos estadísticos en tiempo real.
+                </p>
+                <div class="task-actions">
+                    <a href="https://github.com/JJereChavez/Estad-stica-Computacional/blob/main/app.R" target="_blank" class="btn btn-primary">
+                        📄 Ver Código en GitHub
+                    </a>
+                    <a href="https://github.com/JJereChavez/Estad-stica-Computacional" target="_blank" class="btn">
+                        📁 Ver Repositorio Completo
+                    </a>
+                </div>
+            </div>
+
+            <!-- PROYECTO FINAL UNIDAD 1 -->
+            <div class="task-card final-project">
+                <div class="task-header">
+                    <div class="task-number">🏆</div>
+                    <div>
+                        <h3 class="task-title">TRABAJO FINAL UNIDAD 1 <span class="badge" style="background: var(--neon-green); color: #000;">⭐ Destacado</span></h3>
+                        <p style="color: #888; font-size: 0.9rem;">Proyecto Integrador</p>
+                    </div>
+                </div>
+                <p class="task-description">
+                    Proyecto final que integra todos los conocimientos adquiridos en la Unidad 1: análisis descriptivo, probabilidad, distribuciones y visualizaciones avanzadas con R.
+                </p>
+                <div class="task-actions">
+                    <a href="https://github.com/JJereChavez/Estad-stica-Computacional" target="_blank" class="btn btn-primary">
+                        📁 Ver Repositorio del Proyecto
+                    </a>
+                    <a href="https://github.com/JJereChavez/Estad-stica-Computacional/blob/main/proyecto_final_unidad1.pdf" target="_blank" class="btn">
+                        📋 Ver Informe PDF
+                    </a>
+                    <a href="https://github.com/JJereChavez/Estad-stica-Computacional/blob/main/proyecto_final_unidad1.R" target="_blank" class="btn">
+                        📄 Ver Código R
+                    </a>
+                </div>
+            </div>
+
+            <!-- ARCHIVOS DE DATOS -->
+            <div class="task-card" style="background: rgba(57, 255, 20, 0.03);">
+                <div class="task-header">
+                    <div class="task-number">📊</div>
+                    <div>
+                        <h3 class="task-title">Archivos de Datos</h3>
+                        <p style="color: #888; font-size: 0.9rem;">Datasets utilizados</p>
+                    </div>
+                </div>
+                <p class="task-description">
+                    Archivos .RData e .Rhistory con datasets y historial de análisis realizados durante la unidad.
+                </p>
+                <div class="task-actions">
+                    <a href="https://github.com/JJereChavez/Estad-stica-Computacional/blob/main/.RData" target="_blank" class="btn">
+                        💾 .RData
+                    </a>
+                    <a href="https://github.com/JJereChavez/Estad-stica-Computacional/blob/main/.Rhistory" target="_blank" class="btn">
+                        📜 .Rhistory
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="index.html" class="back-btn">← Volver al Inicio</a>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.task-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            setTimeout(() => {
+                card.style.transition = 'all 0.6s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, index * 100);
+        });
+    </script>
+</body>
+</html>/Estad-stica-Computacional/blob/main/Tarea1.R" target="_blank" class="btn btn-primary">
+                        📄 Ver Código en GitHub
+                    </a>
+                    <a href="https://github.com/JJereChavez
