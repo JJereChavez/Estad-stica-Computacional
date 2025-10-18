@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Estadística Computacional - Jhoan Jeremy Chavez Lima</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Rajdhani:wght@300;400;500&family=Exo+2:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     :root {
       --neon-green: #39FF14;
@@ -25,65 +26,96 @@
       background: var(--dark-bg);
       color: var(--text-color);
       font-family: 'Rajdhani', sans-serif;
-      line-height: 1.6;
+      line-height: 1.7;
       overflow-x: hidden;
     }
 
-    header {
-      background: linear-gradient(135deg, var(--dark-bg), var(--darker-bg));
-      padding: 2rem 1rem;
-      text-align: center;
-      border-bottom: 2px solid var(--neon-green);
-      animation: glowHeader 3s ease-in-out infinite alternate;
+    /* Navbar */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.8rem;
+      border-bottom: 1px solid var(--neon-green);
     }
 
-    @keyframes glowHeader {
-      from { box-shadow: 0 0 10px var(--neon-green); }
-      to { box-shadow: 0 0 25px var(--neon-green-light); }
+    nav a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-family: 'Exo 2', sans-serif;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover, nav a.active {
+      color: var(--neon-green);
+      text-shadow: 0 0 10px var(--neon-green);
+      background: rgba(57, 255, 20, 0.15);
+    }
+
+    header {
+      padding: 9rem 1rem 3rem;
+      text-align: center;
+      background: linear-gradient(135deg, var(--dark-bg), var(--darker-bg));
+      border-bottom: 2px solid var(--neon-green);
+    }
+
+    .tagline {
+      font-family: 'Exo 2', sans-serif;
+      font-size: 1.3rem;
+      color: var(--neon-green-light);
+      margin-bottom: 1.2rem;
+      font-style: italic;
     }
 
     h1 {
       font-family: 'Orbitron', sans-serif;
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       color: var(--neon-green);
       text-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green-dark);
-      margin-bottom: 0.5rem;
+      margin-bottom: 1rem;
     }
 
     .student-info {
       font-family: 'Exo 2', sans-serif;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       margin: 0.5rem 0;
+      opacity: 0.9;
     }
 
     .container {
       max-width: 1200px;
       margin: 2rem auto;
-      padding: 0 1rem;
+      padding: 0 1.5rem;
     }
 
     section {
-      margin: 3rem 0;
-      padding: 2rem;
-      background: rgba(10, 10, 10, 0.7);
-      border-radius: 12px;
+      margin: 4rem 0;
+      padding: 2.5rem;
+      background: rgba(17, 17, 17, 0.7);
+      border-radius: 16px;
       border: 1px solid var(--neon-green-dark);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    section:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(57, 255, 20, 0.3);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      opacity: 0;
+      transform: translateY(30px);
     }
 
     h2 {
       font-family: 'Orbitron', sans-serif;
-      font-size: 2rem;
+      font-size: 2.2rem;
       color: var(--neon-green-light);
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.8rem;
       text-shadow: 0 0 8px var(--neon-green);
       position: relative;
-      padding-bottom: 0.5rem;
+      padding-bottom: 0.6rem;
     }
 
     h2::after {
@@ -91,97 +123,214 @@
       position: absolute;
       bottom: 0;
       left: 0;
-      width: 50px;
-      height: 3px;
+      width: 60px;
+      height: 4px;
       background: var(--neon-green);
-      animation: underlineGlow 2s ease-in-out infinite;
+      border-radius: 2px;
+      animation: pulseGlow 2s infinite;
     }
 
-    @keyframes underlineGlow {
-      0% { box-shadow: 0 0 5px var(--neon-green); }
-      50% { box-shadow: 0 0 15px var(--neon-green-light); }
-      100% { box-shadow: 0 0 5px var(--neon-green); }
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 5px var(--neon-green); }
+      50% { box-shadow: 0 0 20px var(--neon-green-light); }
+    }
+
+    p {
+      margin-bottom: 1.2rem;
+      font-size: 1.05rem;
+      opacity: 0.95;
+    }
+
+    /* Sobre mí */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .profile-pic {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      border: 3px solid var(--neon-green);
+      object-fit: cover;
+      box-shadow: 0 0 20px var(--neon-green);
+      margin: 0 auto;
+    }
+
+    .about-text h3 {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--neon-green);
+      margin-bottom: 1rem;
+      font-size: 1.6rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.2rem;
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: var(--neon-green);
+      color: #000;
+      border-radius: 50%;
+      text-decoration: none;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+    }
+
+    .social-link:hover {
+      transform: scale(1.15);
+      box-shadow: 0 0 15px var(--neon-green-light);
+    }
+
+    /* Trabajo Final destacado */
+    .final-project {
+      background: linear-gradient(135deg, rgba(10, 10, 10, 0.9), rgba(20, 20, 20, 0.9));
+      border: 2px solid var(--neon-green);
+      text-align: center;
+      padding: 3rem;
+      margin: 3rem auto;
+      max-width: 800px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(57, 255, 20, 0.25);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .final-project h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      color: var(--neon-green);
+      margin-bottom: 1.2rem;
+    }
+
+    .btn-final {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      background: var(--neon-green);
+      color: #000;
+      font-weight: bold;
+      font-family: 'Exo 2', sans-serif;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 1.1rem;
+      box-shadow: 0 0 15px var(--neon-green);
+      transition: all 0.3s ease;
+      animation: pulseButton 2s infinite;
+      margin-top: 1rem;
+    }
+
+    @keyframes pulseButton {
+      0% { box-shadow: 0 0 10px var(--neon-green); }
+      50% { box-shadow: 0 0 25px var(--neon-green-light); }
+      100% { box-shadow: 0 0 10px var(--neon-green); }
+    }
+
+    /* Tareas */
+    .stats {
+      display: flex;
+      gap: 1.5rem;
+      margin: 1.5rem 0 2rem;
+      flex-wrap: wrap;
+    }
+
+    .stat-card {
+      background: rgba(57, 255, 20, 0.1);
+      padding: 0.8rem 1.4rem;
+      border-radius: 10px;
+      text-align: center;
+      min-width: 120px;
+    }
+
+    .stat-number {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      color: var(--neon-green);
+    }
+
+    .stat-label {
+      font-size: 0.95rem;
+      opacity: 0.85;
     }
 
     .task-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.8rem;
       margin-top: 1.5rem;
     }
 
     .task-card {
-      background: rgba(17, 17, 17, 0.8);
+      background: rgba(20, 20, 20, 0.8);
       border: 1px solid var(--neon-green-dark);
-      border-radius: 10px;
-      padding: 1.5rem;
-      transition: all 0.3s ease;
+      border-radius: 12px;
+      padding: 1.6rem;
+      transition: all 0.35s ease;
       cursor: pointer;
       position: relative;
       overflow: hidden;
     }
 
     .task-card:hover {
-      background: rgba(57, 255, 20, 0.1);
-      transform: scale(1.03);
-      box-shadow: 0 0 20px var(--neon-green);
+      background: rgba(57, 255, 20, 0.08);
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 10px 25px rgba(57, 255, 20, 0.3);
+      border-color: var(--neon-green);
     }
 
-    .task-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(57, 255, 20, 0.2), transparent);
-      transition: left 0.5s ease;
-    }
-
-    .task-card:hover::before {
-      left: 100%;
+    .task-icon {
+      font-size: 1.8rem;
+      margin-bottom: 0.8rem;
+      color: var(--neon-green);
+      display: block;
     }
 
     .task-title {
       font-family: 'Exo 2', sans-serif;
-      font-size: 1.2rem;
-      color: var(--neon-green);
-      margin-bottom: 0.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .task-title::before {
-      content: "📄";
-      font-size: 1.1rem;
+      font-size: 1.25rem;
+      color: var(--neon-green-light);
+      margin-bottom: 1rem;
     }
 
     .task-links {
       display: flex;
-      gap: 0.5rem;
-      margin-top: 1rem;
       flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1rem;
     }
 
     .task-link {
-      display: inline-block;
-      padding: 0.4rem 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 0.9rem;
       background: var(--neon-green-dark);
       color: #000;
       font-size: 0.9rem;
-      border-radius: 4px;
+      border-radius: 6px;
       text-decoration: none;
       font-weight: bold;
-      transition: all 0.2s ease;
-      box-shadow: 0 0 5px var(--neon-green);
+      transition: all 0.25s ease;
+      box-shadow: 0 0 6px rgba(57, 255, 20, 0.5);
     }
 
     .task-link:hover {
       background: var(--neon-green);
       color: #000;
-      box-shadow: 0 0 10px var(--neon-green-light);
       transform: translateY(-2px);
+      box-shadow: 0 0 12px var(--neon-green-light);
     }
 
     .empty-unit {
@@ -192,172 +341,328 @@
       font-size: 1.2rem;
     }
 
-    footer {
-      text-align: center;
-      padding: 1.5rem;
-      background: var(--darker-bg);
-      margin-top: 3rem;
-      border-top: 1px solid var(--neon-green-dark);
-      font-size: 0.9rem;
-      color: #ccc;
+    /* Botón volver arriba */
+    #backToTop {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      background: var(--neon-green);
+      color: #000;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 1.2rem;
+      box-shadow: 0 0 15px var(--neon-green);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
     }
 
-    /* Mobile responsiveness */
+    #backToTop.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    #backToTop:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 25px var(--neon-green-light);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: var(--darker-bg);
+      margin-top: 4rem;
+      border-top: 1px solid var(--neon-green-dark);
+      font-size: 0.95rem;
+      color: #bbb;
+    }
+
+    /* Responsive */
     @media (max-width: 768px) {
-      h1 {
-        font-size: 2rem;
-      }
-      .task-grid {
-        grid-template-columns: 1fr;
-      }
-      section {
-        padding: 1.5rem;
-      }
+      .about-grid { grid-template-columns: 1fr; text-align: center; }
+      .profile-pic { margin: 0 auto 1.5rem; }
+      .social-links { justify-content: center; }
+      nav { padding: 1rem; gap: 1rem; }
+      nav a { font-size: 0.9rem; padding: 0.4rem 0.8rem; }
+      h1 { font-size: 2.2rem; }
+      .task-grid { grid-template-columns: 1fr; }
+      .final-project { padding: 2rem 1.5rem; }
+      .stats { justify-content: center; }
     }
 
     @media (max-width: 480px) {
-      h1 {
-        font-size: 1.5rem;
-      }
-      .container {
-        padding: 0 0.5rem;
-      }
+      h1 { font-size: 1.8rem; }
+      h2 { font-size: 1.8rem; }
+      .container { padding: 0 1rem; }
+      #backToTop { width: 40px; height: 40px; font-size: 1rem; }
     }
   </style>
 </head>
 <body>
+
+  <!-- Navegación -->
+  <nav id="navbar">
+    <a href="#sobre-mi" class="nav-link">Sobre mí</a>
+    <a href="#unidad1" class="nav-link">Unidad 1</a>
+    <a href="#trabajo-final" class="nav-link">Trabajo Final</a>
+    <a href="#unidad2" class="nav-link">Unidad 2</a>
+    <a href="#contacto" class="nav-link">Contacto</a>
+  </nav>
+
+  <!-- Encabezado -->
   <header>
+    <div class="tagline">"Transformando datos en conocimiento con R y estadística"</div>
     <h1>📊 Estadística Computacional</h1>
     <div class="student-info">Jhoan Jeremy Chavez Lima | Código: 236652</div>
     <div class="student-info">Docente: Cruz Torres Fred</div>
   </header>
 
   <div class="container">
+
+    <!-- Sobre mí -->
+    <section id="sobre-mi">
+      <h2>👤 Sobre mí</h2>
+      <div class="about-grid">
+        <img src="./profile.jpg" alt="Jhoan Jeremy Chavez Lima" class="profile-pic" onerror="this.src='https://via.placeholder.com/220/39FF14/000000?text=Foto'">
+        <div class="about-text">
+          <h3>Jhoan Jeremy Chavez Lima</h3>
+          <p>Estudiante apasionado por la estadística, la ciencia de datos y la programación en R. Actualmente cursando el curso de <strong>Estadística Computacional</strong>, donde aplico técnicas modernas de análisis, visualización y modelado estadístico.</p>
+          <p>Me interesa el uso de herramientas computacionales para resolver problemas reales, especialmente en áreas como la salud, la educación y la investigación social. Este repositorio refleja mi progreso, aprendizaje y dedicación en cada entrega.</p>
+          <p>¡Gracias por visitar mi espacio académico!</p>
+          <div class="social-links">
+            <a href="https://github.com/tuusuario" class="social-link" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="mailto:tucorreo@universidad.edu" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
+            <a href="https://linkedin.com/in/tuperfil" class="social-link" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Unidad 1 -->
     <section id="unidad1">
-      <h2>📚 Unidad 1</h2>
-      <p>Trabajos y tareas completadas en la primera unidad del curso.</p>
+      <h2>📚 Unidad 1 – Fundamentos de Estadística Computacional</h2>
+      <p>En esta primera unidad, exploramos conceptos esenciales como manipulación de datos, visualización estadística, análisis exploratorio y la creación de aplicaciones interactivas con Shiny. Cada tarea refleja un paso en mi formación como analista de datos.</p>
+      
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-number">12</div>
+          <div class="stat-label">Tareas</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">83%</div>
+          <div class="stat-label">Avance</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">4</div>
+          <div class="stat-label">Tipos de archivos</div>
+        </div>
+      </div>
+
       <div class="task-grid">
         <!-- Tarea 01 -->
         <div class="task-card">
+          <i class="task-icon fas fa-file-pdf"></i>
           <div class="task-title">Tarea 01</div>
           <div class="task-links">
-            <a href="./Tarea01.pdf" class="task-link" target="_blank">Ver PDF</a>
+            <a href="./Tarea01.pdf" class="task-link" target="_blank"><i class="fas fa-eye"></i> PDF</a>
           </div>
         </div>
 
         <!-- Tarea 02 -->
         <div class="task-card">
+          <i class="task-icon fas fa-file-pdf"></i>
           <div class="task-title">Tarea 02</div>
           <div class="task-links">
-            <a href="./Tarea02.pdf" class="task-link" target="_blank">Ver PDF</a>
+            <a href="./Tarea02.pdf" class="task-link" target="_blank"><i class="fas fa-eye"></i> PDF</a>
           </div>
         </div>
 
         <!-- Tarea 03 -->
         <div class="task-card">
+          <i class="task-icon fas fa-file-pdf"></i>
           <div class="task-title">Tarea 03</div>
           <div class="task-links">
-            <a href="./Tarea03.pdf" class="task-link" target="_blank">Ver PDF</a>
+            <a href="./Tarea03.pdf" class="task-link" target="_blank"><i class="fas fa-eye"></i> PDF</a>
           </div>
         </div>
 
         <!-- Tarea 04 -->
         <div class="task-card">
+          <i class="task-icon fas fa-file-pdf"></i>
           <div class="task-title">Tarea 04</div>
           <div class="task-links">
-            <a href="./Tarea04.pdf" class="task-link" target="_blank">Ver PDF</a>
+            <a href="./Tarea04.pdf" class="task-link" target="_blank"><i class="fas fa-eye"></i> PDF</a>
           </div>
         </div>
 
         <!-- Tarea 05 -->
         <div class="task-card">
+          <i class="task-icon fas fa-file-pdf"></i>
           <div class="task-title">Tarea 05</div>
           <div class="task-links">
-            <a href="./Tarea5.pdf" class="task-link" target="_blank">Ver PDF</a>
-            <a href="./Tarea5.R" class="task-link" target="_blank">Código R</a>
+            <a href="./Tarea5.pdf" class="task-link" target="_blank"><i class="fas fa-eye"></i> PDF</a>
+            <a href="./Tarea5.R" class="task-link" target="_blank"><i class="fas fa-code"></i> R</a>
           </div>
         </div>
 
         <!-- Tarea 06 -->
         <div class="task-card">
+          <i class="task-icon fas fa-file-pdf"></i>
           <div class="task-title">Tarea 06</div>
           <div class="task-links">
-            <a href="./Tarea06.pdf" class="task-link" target="_blank">Ver PDF</a>
-            <a href="./Tarea6.R" class="task-link" target="_blank">Código R</a>
+            <a href="./Tarea06.pdf" class="task-link" target="_blank"><i class="fas fa-eye"></i> PDF</a>
+            <a href="./Tarea6.R" class="task-link" target="_blank"><i class="fas fa-code"></i> R</a>
           </div>
         </div>
 
         <!-- Tarea 07 -->
         <div class="task-card">
+          <i class="task-icon fas fa-file-pdf"></i>
           <div class="task-title">Tarea 07</div>
           <div class="task-links">
-            <a href="./Tarea 07.pdf" class="task-link" target="_blank">Ver PDF</a>
+            <a href="./Tarea_07.pdf" class="task-link" target="_blank"><i class="fas fa-eye"></i> PDF</a>
           </div>
         </div>
 
         <!-- Tarea 08 Shiny APP -->
         <div class="task-card">
+          <i class="task-icon fas fa-cube"></i>
           <div class="task-title">Tarea 08 Shiny APP</div>
           <div class="task-links">
-            <a href="./Tarea 08 Shiny APP.zip" class="task-link" target="_blank">Descargar ZIP</a>
+            <a href="./Tarea 08 Shiny APP.zip" class="task-link" target="_blank"><i class="fas fa-download"></i> ZIP</a>
           </div>
         </div>
 
         <!-- Tarea 09 -->
         <div class="task-card">
+          <i class="task-icon fas fa-file-excel"></i>
           <div class="task-title">Tarea 09</div>
           <div class="task-links">
-            <a href="./Tarea09.xlsx" class="task-link" target="_blank">Ver Excel</a>
+            <a href="./Tarea09.xlsx" class="task-link" target="_blank"><i class="fas fa-table"></i> Excel</a>
           </div>
         </div>
 
         <!-- Tarea 10 -->
         <div class="task-card">
+          <i class="task-icon fas fa-file-pdf"></i>
           <div class="task-title">Tarea 10</div>
           <div class="task-links">
-            <a href="./Tarea 010.pdf" class="task-link" target="_blank">Ver PDF</a>
+            <a href="./Tarea_010.pdf" class="task-link" target="_blank"><i class="fas fa-eye"></i> PDF</a>
           </div>
         </div>
 
         <!-- Tarea 11 -->
         <div class="task-card">
+          <i class="task-icon fas fa-file-pdf"></i>
           <div class="task-title">Tarea 11</div>
           <div class="task-links">
-            <a href="./Tarea011.pdf" class="task-link" target="_blank">Ver PDF</a>
+            <a href="./Tarea011.pdf" class="task-link" target="_blank"><i class="fas fa-eye"></i> PDF</a>
           </div>
         </div>
 
         <!-- Sabana de Datos -->
         <div class="task-card">
+          <i class="task-icon fas fa-file-excel"></i>
           <div class="task-title">Sabana de Datos</div>
           <div class="task-links">
-            <a href="./SabanaDeDatos.xlsx" class="task-link" target="_blank">Ver Excel</a>
-          </div>
-        </div>
-
-        <!-- Trabajo Final Unitario (Revisión Sistemática) -->
-        <div class="task-card">
-          <div class="task-title">📝 Trabajo Final Unidad 1</div>
-          <div class="task-links">
-            <a href="./revisionsistematica.pdf" class="task-link" target="_blank">Ver PDF</a>
+            <a href="./SabanaDeDatos.xlsx" class="task-link" target="_blank"><i class="fas fa-table"></i> Excel</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Unidad 2 (Vacía por ahora) -->
-    <section id="unidad2">
-      <h2>📈 Unidad 2</h2>
-      <div class="empty-unit">
-        👉 Aún no hay trabajos cargados para esta unidad.<br>
-        ¡Pronto estarán disponibles!
+    <!-- Trabajo Final destacado -->
+    <section id="trabajo-final">
+      <h2>🎯 Trabajo Final – Unidad 1</h2>
+      <div class="final-project">
+        <i class="fas fa-graduation-cap" style="font-size: 3rem; color: var(--neon-green); margin-bottom: 1rem;"></i>
+        <h3>Revisión Sistemática</h3>
+        <p>Este documento sintetiza hallazgos clave, metodologías y conclusiones derivadas del análisis estadístico realizado durante la primera unidad. Incluye revisión de literatura, selección de variables, y discusión crítica de resultados.</p>
+        <a href="./revisionsistematica.pdf" class="btn-final" target="_blank">
+          <i class="fas fa-file-pdf"></i> Abrir Revisión Sistemática
+        </a>
       </div>
+    </section>
+
+    <!-- Unidad 2 -->
+    <section id="unidad2">
+      <h2>📈 Unidad 2 – Modelos Estadísticos Avanzados</h2>
+      <p>En esta segunda unidad, profundizaremos en modelos de regresión, inferencia bayesiana, remuestreo (bootstrap, jackknife), y técnicas de machine learning aplicadas a la estadística. ¡Estoy emocionado por lo que viene!</p>
+      <div class="empty-unit">
+        <i class="fas fa-hourglass-half" style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--neon-green);"></i><br>
+        👉 Aún no hay entregas en esta unidad.<br>
+        ¡Pronto subiré mis avances!
+      </div>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contacto">
+      <h2>📬 Contacto</h2>
+      <p>¿Tienes comentarios, sugerencias o quieres colaborar? ¡No dudes en escribirme! Estoy abierto a retroalimentación académica y oportunidades de aprendizaje conjunto.</p>
+      <p><strong>Email:</strong> <a href="mailto:tucorreo@universidad.edu" style="color: var(--neon-green); text-decoration: underline;">tucorreo@universidad.edu</a></p>
+      <p><strong>GitHub:</strong> <a href="https://github.com/tuusuario" target="_blank" style="color: var(--neon-green); text-decoration: underline;">github.com/tuusuario</a></p>
     </section>
   </div>
+
+  <!-- Botón volver arriba -->
+  <a href="#" id="backToTop" class="fas fa-arrow-up"></a>
 
   <footer>
     © 2025 Jhoan Jeremy Chavez Lima | Curso de Estadística Computacional | GitHub Pages
   </footer>
+
+  <script>
+    // Smooth scroll y activación de menú
+    document.querySelectorAll('.nav-link').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+        window.scrollTo({
+          top: targetSection.offsetTop - 80,
+          behavior: 'smooth'
+        });
+        document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // Botón volver arriba
+    const backToTopButton = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        backToTopButton.classList.add('show');
+      } else {
+        backToTopButton.classList.remove('show');
+      }
+    });
+
+    backToTopButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Animar secciones al hacer scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animation = 'fadeInUp 0.8s forwards';
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('section').forEach(section => {
+      section.style.opacity = '0';
+      section.style.transform = 'translateY(30px)';
+      observer.observe(section);
+    });
+  </script>
 </body>
 </html>
