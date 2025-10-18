@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Estadística Computacional - Jhoan Jeremy Chavez Lima</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Rajdhani:wght@300;400;500&family=Exo+2:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --neon-green: #39FF14;
+      --neon-green-dark: #00FF00;
+      --neon-green-light: #32CD32;
+      --dark-bg: #0A0A0A;
+      --darker-bg: #111111;
+      --text-color: #FFFFFF;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--dark-bg);
+      color: var(--text-color);
+      font-family: 'Rajdhani', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--dark-bg), var(--darker-bg));
+      padding: 2rem 1rem;
+      text-align: center;
+      border-bottom: 2px solid var(--neon-green);
+      animation: glowHeader 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes glowHeader {
+      from { box-shadow: 0 0 10px var(--neon-green); }
+      to { box-shadow: 0 0 25px var(--neon-green-light); }
+    }
+
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.5rem;
+      color: var(--neon-green);
+      text-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .student-info {
+      font-family: 'Exo 2', sans-serif;
+      font-size: 1.1rem;
+      margin: 0.5rem 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    section {
+      margin: 3rem 0;
+      padding: 2rem;
+      background: rgba(10, 10, 10, 0.7);
+      border-radius: 12px;
+      border: 1px solid var(--neon-green-dark);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(57, 255, 20, 0.3);
+    }
+
+    h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      color: var(--neon-green-light);
+      margin-bottom: 1.5rem;
+      text-shadow: 0 0 8px var(--neon-green);
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--neon-green);
+      animation: underlineGlow 2s ease-in-out infinite;
+    }
+
+    @keyframes underlineGlow {
+      0% { box-shadow: 0 0 5px var(--neon-green); }
+      50% { box-shadow: 0 0 15px var(--neon-green-light); }
+      100% { box-shadow: 0 0 5px var(--neon-green); }
+    }
+
+    .task-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .task-card {
+      background: rgba(17, 17, 17, 0.8);
+      border: 1px solid var(--neon-green-dark);
+      border-radius: 10px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .task-card:hover {
+      background: rgba(57, 255, 20, 0.1);
+      transform: scale(1.03);
+      box-shadow: 0 0 20px var(--neon-green);
+    }
+
+    .task-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(57, 255, 20, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .task-card:hover::before {
+      left: 100%;
+    }
+
+    .task-title {
+      font-family: 'Exo 2', sans-serif;
+      font-size: 1.2rem;
+      color: var(--neon-green);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .task-title::before {
+      content: "📄";
+      font-size: 1.1rem;
+    }
+
+    .task-links {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .task-link {
+      display: inline-block;
+      padding: 0.4rem 0.8rem;
+      background: var(--neon-green-dark);
+      color: #000;
+      font-size: 0.9rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.2s ease;
+      box-shadow: 0 0 5px var(--neon-green);
+    }
+
+    .task-link:hover {
+      background: var(--neon-green);
+      color: #000;
+      box-shadow: 0 0 10px var(--neon-green-light);
+      transform: translateY(-2px);
+    }
+
+    .empty-unit {
+      text-align: center;
+      padding: 3rem;
+      font-style: italic;
+      color: #aaa;
+      font-size: 1.2rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      background: var(--darker-bg);
+      margin-top: 3rem;
+      border-top: 1px solid var(--neon-green-dark);
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+      .task-grid {
+        grid-template-columns: 1fr;
+      }
+      section {
+        padding: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+      .container {
+        padding: 0 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📊 Estadística Computacional</h1>
+    <div class="student-info">Jhoan Jeremy Chavez Lima | Código: 236652</div>
+    <div class="student-info">Docente: Cruz Torres Fred</div>
+  </header>
+
+  <div class="container">
+    <!-- Unidad 1 -->
+    <section id="unidad1">
+      <h2>📚 Unidad 1</h2>
+      <p>Trabajos y tareas completadas en la primera unidad del curso.</p>
+      <div class="task-grid">
+        <!-- Tarea 01 -->
+        <div class="task-card">
+          <div class="task-title">Tarea 01</div>
+          <div class="task-links">
+            <a href="./Tarea01.pdf" class="task-link" target="_blank">Ver PDF</a>
+          </div>
+        </div>
+
+        <!-- Tarea 02 -->
+        <div class="task-card">
+          <div class="task-title">Tarea 02</div>
+          <div class="task-links">
+            <a href="./Tarea02.pdf" class="task-link" target="_blank">Ver PDF</a>
+          </div>
+        </div>
+
+        <!-- Tarea 03 -->
+        <div class="task-card">
+          <div class="task-title">Tarea 03</div>
+          <div class="task-links">
+            <a href="./Tarea03.pdf" class="task-link" target="_blank">Ver PDF</a>
+          </div>
+        </div>
+
+        <!-- Tarea 04 -->
+        <div class="task-card">
+          <div class="task-title">Tarea 04</div>
+          <div class="task-links">
+            <a href="./Tarea04.pdf" class="task-link" target="_blank">Ver PDF</a>
+          </div>
+        </div>
+
+        <!-- Tarea 05 -->
+        <div class="task-card">
+          <div class="task-title">Tarea 05</div>
+          <div class="task-links">
+            <a href="./Tarea5.pdf" class="task-link" target="_blank">Ver PDF</a>
+            <a href="./Tarea5.R" class="task-link" target="_blank">Código R</a>
+          </div>
+        </div>
+
+        <!-- Tarea 06 -->
+        <div class="task-card">
+          <div class="task-title">Tarea 06</div>
+          <div class="task-links">
+            <a href="./Tarea06.pdf" class="task-link" target="_blank">Ver PDF</a>
+            <a href="./Tarea6.R" class="task-link" target="_blank">Código R</a>
+          </div>
+        </div>
+
+        <!-- Tarea 07 -->
+        <div class="task-card">
+          <div class="task-title">Tarea 07</div>
+          <div class="task-links">
+            <a href="./Tarea 07.pdf" class="task-link" target="_blank">Ver PDF</a>
+          </div>
+        </div>
+
+        <!-- Tarea 08 Shiny APP -->
+        <div class="task-card">
+          <div class="task-title">Tarea 08 Shiny APP</div>
+          <div class="task-links">
+            <a href="./Tarea 08 Shiny APP.zip" class="task-link" target="_blank">Descargar ZIP</a>
+          </div>
+        </div>
+
+        <!-- Tarea 09 -->
+        <div class="task-card">
+          <div class="task-title">Tarea 09</div>
+          <div class="task-links">
+            <a href="./Tarea09.xlsx" class="task-link" target="_blank">Ver Excel</a>
+          </div>
+        </div>
+
+        <!-- Tarea 10 -->
+        <div class="task-card">
+          <div class="task-title">Tarea 10</div>
+          <div class="task-links">
+            <a href="./Tarea 010.pdf" class="task-link" target="_blank">Ver PDF</a>
+          </div>
+        </div>
+
+        <!-- Tarea 11 -->
+        <div class="task-card">
+          <div class="task-title">Tarea 11</div>
+          <div class="task-links">
+            <a href="./Tarea011.pdf" class="task-link" target="_blank">Ver PDF</a>
+          </div>
+        </div>
+
+        <!-- Sabana de Datos -->
+        <div class="task-card">
+          <div class="task-title">Sabana de Datos</div>
+          <div class="task-links">
+            <a href="./SabanaDeDatos.xlsx" class="task-link" target="_blank">Ver Excel</a>
+          </div>
+        </div>
+
+        <!-- Trabajo Final Unitario (Revisión Sistemática) -->
+        <div class="task-card">
+          <div class="task-title">📝 Trabajo Final Unidad 1</div>
+          <div class="task-links">
+            <a href="./revisionsistematica.pdf" class="task-link" target="_blank">Ver PDF</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Unidad 2 (Vacía por ahora) -->
+    <section id="unidad2">
+      <h2>📈 Unidad 2</h2>
+      <div class="empty-unit">
+        👉 Aún no hay trabajos cargados para esta unidad.<br>
+        ¡Pronto estarán disponibles!
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    © 2025 Jhoan Jeremy Chavez Lima | Curso de Estadística Computacional | GitHub Pages
+  </footer>
+</body>
+</html>
